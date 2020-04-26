@@ -22,7 +22,7 @@ async function bootstrap() {
     //   logger: ['error', 'warn']
     // }
   );
-  // const app = await NestFactory.create(AppModule);
+
   app.enableCors();
   app.register(helmet);
   app.setGlobalPrefix('api');
