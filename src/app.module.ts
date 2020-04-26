@@ -1,8 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+// import { JwtModule } from '@nestjs/jwt';
 import { V1Module } from './api/v1/v1.module';
 
-// import { LoggerMiddleware } from './common/middleware/response.middleware';
+import { TokenController } from './api/controllers/token.controller';
+import { PingController } from './api/controllers/ping.controller';
+
 import { ResponseService } from './common/services/response/response.service';
 
 @Module({
@@ -12,7 +15,10 @@ import { ResponseService } from './common/services/response/response.service';
     }),
     V1Module
   ],
-  controllers: [],
+  controllers: [
+    PingController,
+    TokenController
+  ],
   providers: [
     ResponseService
   ]

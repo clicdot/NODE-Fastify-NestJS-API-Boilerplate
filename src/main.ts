@@ -12,6 +12,9 @@ import { TransformInterceptor } from './common/interceptor/transform.interceptor
 import { ErrorsInterceptor } from './common/interceptor/errors.interceptor';
 import { HttpExceptionFilter } from './common/filters/errors.exception';
 import { ResponseService } from './common/services/response/response.service';
+import * as jwt from 'fastify-jwt';
+import * as path from 'path';
+import { readFileSync } from 'fs-extra';
 
 async function bootstrap() {
   const responseSet = new ResponseService();
@@ -28,6 +31,22 @@ async function bootstrap() {
 
   app.enableCors();
   app.register(helmet);
+  app.register(jwt, {
+    secret: {
+      private: readFileSync(`${path.join(__dirname, 'KEYS')}/oauth-private.key`, 'utf8'),
+      public: readFileSync(`${path.join(__dirname, 'KEYS')}/oauth-public.key`, 'utf8')
+    },
+    sign: {
+      algorithm: 'RS256',
+      audience: 'https://domain.com',
+      issuer: 'api.domain.com',
+      expiresIn: '1h'
+    },
+    verify: {
+      audience: 'https://domain.com',
+      issuer: 'api.domain.com'
+    }
+  });
   app.setGlobalPrefix('api');
   app.useGlobalFilters(new HttpExceptionFilter(responseSet));
   app.useGlobalInterceptors(new GlobalInterceptor());

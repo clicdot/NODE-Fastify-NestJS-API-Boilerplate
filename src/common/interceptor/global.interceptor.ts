@@ -5,6 +5,9 @@ import { tap } from 'rxjs/operators';
 @Injectable()
 export class GlobalInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
+    const ctx = context.switchToHttp();
+    const request = ctx.getRequest();
+    const reply = ctx.getResponse();
     console.log('Before...');
 
     const now = Date.now();
