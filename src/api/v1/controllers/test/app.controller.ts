@@ -7,6 +7,7 @@ export class AppController {
 
   @Get()
   getHello(): string {
+    console.log(process.env.TEST);
     // throw new UnauthorizedException();
     return this.appService.getHello();
   }

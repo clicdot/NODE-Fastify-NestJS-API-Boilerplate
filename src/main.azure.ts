@@ -1,5 +1,6 @@
 import { INestApplication } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { ConfigService } from '@nestjs/config';
 
 import * as helmet from 'helmet';
 import { AppModule } from './app.module';
@@ -13,6 +14,8 @@ export async function createApp(): Promise<INestApplication> {
   const responseSet = new ResponseService();
   responseSet.set(2);
   const app = await NestFactory.create(AppModule);
+  const configService = app.get(ConfigService);
+  const port = configService.get('PORT');
   app.enableCors();
   app.use(helmet());
   app.setGlobalPrefix('api');

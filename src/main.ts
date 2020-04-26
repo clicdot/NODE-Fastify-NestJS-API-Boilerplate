@@ -1,5 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { ConfigService } from '@nestjs/config';
 import {
   FastifyAdapter,
   NestFastifyApplication,
@@ -22,6 +23,8 @@ async function bootstrap() {
     //   logger: ['error', 'warn']
     // }
   );
+  const configService = app.get(ConfigService);
+  const port = configService.get('PORT');
 
   app.enableCors();
   app.register(helmet);
@@ -33,14 +36,14 @@ async function bootstrap() {
 
   // Swagger Docs
   const options = new DocumentBuilder()
-    .setTitle('Spacee example')
-    .setDescription('The Spacee API description')
+    .setTitle('Swagger example')
+    .setDescription('The SpSwaggeracee API description')
     .setVersion('1.0')
-    .addTag('Spacee')
+    .addTag('Swagger')
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('swagger', app, document);
 
-  await app.listen(3000, '0.0.0.0');
+  await app.listen(port, '0.0.0.0');
 }
 bootstrap();
