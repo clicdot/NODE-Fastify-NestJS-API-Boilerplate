@@ -50,7 +50,7 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
   app.useGlobalFilters(new HttpExceptionFilter(responseSet));
   app.useGlobalInterceptors(new GlobalInterceptor());
-  app.useGlobalInterceptors(new ErrorsInterceptor());
+  // app.useGlobalInterceptors(new ErrorsInterceptor());
   app.useGlobalInterceptors(new TransformInterceptor(responseSet));
 
   // Swagger Docs
