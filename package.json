@@ -9,7 +9,7 @@
     "prebuild": "rimraf dist",
     "build": "rimraf dist && tsc -p tsconfig.build.json",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "copyfiles src/KEYS/*.key dist/ && nest start",
+    "start": "copyfiles src/KEYS/*.key dist/ && nest start --watch",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
@@ -19,6 +19,9 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
+    "test:tap": "npm run lint && npm run test:tap:unit",
+    "test:tap:coverage": "npm run test:tap:unit -- --cov --coverage-report=text --coverage-report=html",
+    "test:tap:unit": "tap -Rclassic ./tests/**/*.test.ts",
     "start:azure": "npm run build && func host start"
   },
   "dependencies": {

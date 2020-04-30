@@ -8,7 +8,6 @@ export class AppController {
   @Get()
   getHello(): string {
     // throw new UnauthorizedException();
-    // return this.appService.getHello();
-    return 'hello';
+    return this.appService.getHello();
   }
 }
