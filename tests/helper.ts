@@ -7,6 +7,10 @@ import {
   FastifyAdapter,
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
+import { ResponseService } from './../src/common/services/response/response.service';
+import { GlobalInterceptor } from './../src/common/interceptor/global.interceptor';
+import { HttpExceptionFilter } from './../src/common/filters/errors.exception';
+import { TransformInterceptor } from './../src/common/interceptor/transform.interceptor';
 import { beforeEach, afterEach, tearDown } from 'tap';
 
 let app: NestFastifyApplication;
@@ -20,6 +24,12 @@ beforeEach(async (done) => {
     new FastifyAdapter(),
   );
   app.setGlobalPrefix('api');
+  const responseSet = new ResponseService();
+  responseSet.set(1);
+  app.useGlobalInterceptors(new GlobalInterceptor());
+  app.useGlobalFilters(new HttpExceptionFilter(responseSet));
+  app.useGlobalInterceptors(new TransformInterceptor(responseSet));
+
   await app.init();
   done();
 });
@@ -31,12 +41,6 @@ afterEach(async (done) => {
 tearDown(async (done) => {
   // done();
 });
-
-function config () {
-  return {
-
-  };
-}
 
 function helperBuilder (t) {
 
