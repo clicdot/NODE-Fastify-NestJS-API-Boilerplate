@@ -15,7 +15,7 @@ test('root test', (assert) => {
     });
 
     const { response, data } = JSON.parse(res.payload);
-    console.log(response);
+
     assert.equal(response.code, 201, 'Success');
     assert.deepEqual(data, {
       hello: 'world'

@@ -51,13 +51,13 @@ $ npm run start:prod
 
 ```bash
 # unit tests
-$ npm run test
+$ npm run test:tap
 
 # e2e tests
 $ npm run test:e2e
 
 # test coverage
-$ npm run test:cov
+$ npm run test:tap:cov
 ```
 
 ## Support
@@ -77,8 +77,6 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 # TODO
 
 - Documentation on Routing and Controllers
-- Documentation on ENV usage??
 - OAuth2.0 integration that supports Client Credentials
 - Finish Azure Functions service wrapper
 - JSON Schema integration
-- TAP implementation option as Unit Test runner

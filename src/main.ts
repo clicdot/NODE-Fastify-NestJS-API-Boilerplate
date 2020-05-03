@@ -19,7 +19,8 @@ import { ConfigService } from '@nestjs/config';
 import { start } from './fastify.bootsrap';
 
 async function bootstrap() {
-  const app = await start();
+  const App = await start();
+  const app = App.app;
 
   const configService = app.get(ConfigService);
   const port = configService.get('PORT');

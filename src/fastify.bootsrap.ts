@@ -12,11 +12,18 @@ import { TransformInterceptor } from './common/interceptor/transform.interceptor
 import { ErrorsInterceptor } from './common/interceptor/errors.interceptor';
 import { HttpExceptionFilter } from './common/filters/errors.exception';
 import { ResponseService } from './common/services/response/response.service';
+import * as fastify from 'fastify';
 import * as jwt from 'fastify-jwt';
 import * as path from 'path';
 import { readFileSync } from 'fs-extra';
 
-export async function start() {
+interface NestApp {
+  app: NestFastifyApplication;
+  instance: fastify.FastifyInstance;
+}
+
+
+export async function start(): Promise<NestApp> {
   const responseSet = new ResponseService();
   responseSet.set(1);
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -28,6 +35,8 @@ export async function start() {
   );
   const configService = app.get(ConfigService);
   const port = configService.get('PORT');
+
+  const instance: fastify.FastifyInstance = fastify({});
 
   app.enableCors();
   app.register(helmet);
@@ -64,5 +73,8 @@ export async function start() {
   SwaggerModule.setup('swagger', app, document);
 
   await app.init();
-  return app;
+  return {
+    app,
+    instance
+  };
 }
