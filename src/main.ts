@@ -21,6 +21,7 @@ import { start } from './fastify.bootsrap';
 async function bootstrap() {
   const App = await start();
   const app = App.app;
+  // const instance = App.instance;
 
   const configService = app.get(ConfigService);
   const port = configService.get('PORT');

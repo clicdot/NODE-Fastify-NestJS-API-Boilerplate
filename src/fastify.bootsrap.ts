@@ -22,7 +22,6 @@ interface NestApp {
   instance: fastify.FastifyInstance;
 }
 
-
 export async function start(): Promise<NestApp> {
   const responseSet = new ResponseService();
   responseSet.set(1);

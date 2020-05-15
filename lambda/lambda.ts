@@ -27,7 +27,7 @@ export const handler = async (
   if (!cachedNestApp) {
       cachedNestApp = await start();
   }
-  const proxy = awsLambdaFastify(cachedNestApp.instance);
+  const proxy = awsLambdaFastify(cachedNestApp.app);
 
   return proxy(event, context);
 };
