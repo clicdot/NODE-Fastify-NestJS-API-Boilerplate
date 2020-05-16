@@ -2,12 +2,10 @@ import {
   Injectable,
   NestInterceptor,
   ExecutionContext,
-  BadGatewayException,
   CallHandler,
 } from '@nestjs/common';
 import { Observable, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
-import { v4 as uuidv4 } from 'uuid';
+import { catchError } from 'rxjs/operators';
 
 export interface Response {
   response: any;
@@ -17,7 +15,7 @@ export interface Response {
 @Injectable()
 export class ErrorsInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    const ctx = context.switchToHttp();
+    // const ctx = context.switchToHttp();
     return next
       .handle()
       .pipe(

@@ -14,8 +14,7 @@ export async function createApp(): Promise<INestApplication> {
   const responseSet = new ResponseService();
   responseSet.set(2);
   const app = await NestFactory.create(AppModule);
-  const configService = app.get(ConfigService);
-  const port = configService.get('PORT');
+  app.get(ConfigService);
   app.enableCors();
   app.use(helmet());
   app.setGlobalPrefix('api');

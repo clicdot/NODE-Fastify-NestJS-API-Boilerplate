@@ -1,4 +1,4 @@
-import { Controller, Get, UnauthorizedException } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { AppService } from './services/app.service';
 
 @Controller('cat')

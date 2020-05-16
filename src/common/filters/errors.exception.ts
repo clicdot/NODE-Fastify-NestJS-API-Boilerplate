@@ -7,7 +7,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
   constructor(private responseSvc) {}
 
   catch(error: Error, host: ArgumentsHost) {
-    const response = host.switchToHttp().getResponse();
+    // const response = host.switchToHttp().getResponse();
     const status = (error instanceof HttpException) ? error.getStatus(): HttpStatus.BAD_REQUEST;
     const ctx = host.switchToHttp();
     const request = ctx.getRequest();
