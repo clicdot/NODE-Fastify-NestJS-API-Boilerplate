@@ -25,7 +25,7 @@ describe('AppController (e2e)', () => {
       method: 'GET',
       url: '/api/v1/test/cat',
     }).then(({ payload }) => {
-      console.log(payload);
+      expect(payload).toBe('Hello World!');
     });
   });
 });

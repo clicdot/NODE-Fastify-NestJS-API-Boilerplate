@@ -27,9 +27,11 @@ describe('ResponseService', () => {
       expect(await service.set(type)).toBe(type);
       const reply = {
         code (status) {
+          console.log(status);
           return this;
         },
         send (json) {
+          console.log(json);
           return this;
         },
       };
@@ -42,9 +44,11 @@ describe('ResponseService', () => {
     it('Reply type 2', async () => {
       const reply = {
         status (status) {
+          console.log(status);
           return this;
         },
         json (json) {
+          console.log(json);
           return this;
         },
       };
