@@ -33,22 +33,5 @@ describe('ResponseService', () => {
 
       expect(await service.reply(reply, opt)).toMatchObject(expectedResult);
     });
-
-    it('Reply type 2', async () => {
-      const reply = {
-        status (status) {
-          console.log(status);
-          return this;
-        },
-        json (json) {
-          console.log(json);
-          return this;
-        },
-      };
-      const expectedResult = {};
-      const opt = {};
-
-      expect(await service.reply(reply, opt)).toMatchObject(expectedResult);
-    });
   });
 });
