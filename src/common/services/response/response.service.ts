@@ -6,35 +6,16 @@ export class ResponseService {
   type: number;
 
   reply(reply: any, opt: any) {
-    // console.log(opt)
-    if (this.type === 1) {
-      return reply
-        .code(opt.code)
-        .send({
-          response: {
-            code: opt.code,
-            id: uuidv4(),
-            timestamp: new Date().toISOString(),
-            function: opt.func,
-            message: opt.msg
-          }
-        });
-    } else {
-      return reply
-        .status(opt.code)
-        .json({
-          response: {
-            code: opt.code,
-            id: uuidv4(),
-            timestamp: new Date().toISOString(),
-            function: opt.func,
-            message: opt.msg
-          }
-        });
-    }
-  }
-
-  set(type) {
-    return this.type = type;
+    return reply
+      .code(opt.code)
+      .send({
+        response: {
+          code: opt.code,
+          id: uuidv4(),
+          timestamp: new Date().toISOString(),
+          function: opt.func,
+          message: opt.msg
+        }
+      });
   }
 }

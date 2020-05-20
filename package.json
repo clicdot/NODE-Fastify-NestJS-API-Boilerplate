@@ -1,5 +1,5 @@
 {
-  "name": "spacee-boilerplate",
+  "name": "nestjs-boilerplate",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -8,10 +8,11 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "rimraf dist && tsc -p tsconfig.build.json",
+    "doc": "npx compodoc -p tsconfig.json -s",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "copyfiles src/KEYS/*.key dist/ && nest start --watch",
-    "start:dev": "nest start --watch",
-    "start:debug": "nest start --debug --watch",
+    "start:dev": "copyfiles src/KEYS/*.key dist/ && nest start --watch",
+    "start:debug": "copyfiles src/KEYS/*.key dist/ && nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "npm run lint && jest",
@@ -21,17 +22,13 @@
     "test:e2e": "npm run lint && jest --config ./test/jest-e2e.json",
     "test:tap": "npm run lint && npm run test:tap:unit",
     "test:tap:cov": "npm run test:tap:unit -- --cov --coverage-report=text --coverage-report=html",
-    "test:tap:unit": "tap -Rclassic ./tests/**/*.test.ts",
-    "start:azure": "npm run build && func host start"
+    "test:tap:unit": "tap -Rclassic ./tests/**/*.test.ts"
   },
   "dependencies": {
-    "@azure/functions": "^1.2.0",
-    "@nestjs/azure-func-http": "^0.5.0",
     "@nestjs/common": "^7.0.13",
     "@nestjs/config": "^0.4.2",
     "@nestjs/core": "^7.0.13",
     "@nestjs/jwt": "^7.0.0",
-    "@nestjs/platform-express": "^7.0.13",
     "@nestjs/platform-fastify": "^7.0.13",
     "@nestjs/swagger": "^4.5.6",
     "@nestjs/terminus": "^7.0.1",
@@ -41,7 +38,6 @@
     "fastify-helmet": "^3.0.2",
     "fastify-jwt": "^1.3.1",
     "fastify-swagger": "^2.5.1",
-    "helmet": "^3.22.0",
     "nest-router": "^1.0.9",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",

@@ -17,7 +17,7 @@ export class TransformInterceptor<T> implements NestInterceptor<Response> {
     const request = ctx.getRequest();
     const reply = ctx.getResponse();
 
-    const version = ((request.route && request.route.path) ? request.route.path : request.raw.url).split('/')[2];
+    const version = (request.raw.url).split('/')[2];
 
     const now = Date.now();
     return next.handle().pipe(map(data => {
@@ -26,8 +26,8 @@ export class TransformInterceptor<T> implements NestInterceptor<Response> {
         id: uuidv4(),
         timestamp: new Date().toISOString(),
         function: {
-          method: request.method || request.raw.method,
-          url: (request.route && request.route.path) ? request.route.path : request.raw.url,
+          method: request.raw.method,
+          url: request.raw.url,
           version,
           ip: (this.responseSvc.type === 1) ? request.ip : 'n/a'
         },

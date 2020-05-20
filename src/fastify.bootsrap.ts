@@ -24,7 +24,7 @@ interface NestApp {
 
 export async function start(): Promise<NestApp> {
   const responseSet = new ResponseService();
-  responseSet.set(1);
+
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     new FastifyAdapter(),

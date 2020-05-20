@@ -17,14 +17,7 @@ describe('ResponseService', () => {
   });
 
   describe('Reply ', () => {
-    it('Should get data', async () => {
-      const type = 1;
-      expect(await service.set(type)).toBe(type);
-    });
-
     it('Reply type 1', async () => {
-      const type = 1;
-      expect(await service.set(type)).toBe(type);
       const reply = {
         code (status) {
           console.log(status);
