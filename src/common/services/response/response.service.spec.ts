@@ -16,22 +16,22 @@ describe('ResponseService', () => {
     expect(service).toBeDefined();
   });
 
-  function reply() {
-    const reply = {
-      code (status) {
-        console.log('STAUS', status);
-        return this;
-      },
-      send (json) {
-        console.log('JSON', json);
-        return this;
-      },
-    };
-  }
+  // function reply() {
+  //   const reply = {
+  //     code (status) {
+  //       console.log('STAUS', status);
+  //       return this;
+  //     },
+  //     send (json) {
+  //       console.log('JSON', json);
+  //       return this;
+  //     },
+  //   };
+  // }
 
   describe('Reply ', () => {
     it('Reply type 1', async () => {
-      const obj = {};
+      // const obj = {};
       const reply = {
         code (status) {
           console.log('STAUS', status);
