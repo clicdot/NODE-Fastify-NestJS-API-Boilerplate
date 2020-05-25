@@ -16,22 +16,42 @@ describe('ResponseService', () => {
     expect(service).toBeDefined();
   });
 
+  function reply() {
+    const reply = {
+      code (status) {
+        console.log('STAUS', status);
+        return this;
+      },
+      send (json) {
+        console.log('JSON', json);
+        return this;
+      },
+    };
+  }
+
   describe('Reply ', () => {
     it('Reply type 1', async () => {
+      const obj = {};
       const reply = {
         code (status) {
-          console.log(status);
+          console.log('STAUS', status);
           return this;
         },
         send (json) {
-          console.log(json);
+          console.log('JSON', json);
           return this;
         },
       };
       const expectedResult = {};
-      const opt = {};
+      const opt = {
+        code: 200,
+        func: {
 
-      expect(await service.reply(reply, opt)).toMatchObject(expectedResult);
+        },
+        msg: []
+      };
+      // console.log('RESPONSE', await service.reply(reply, opt));
+      expect(await service.reply(reply, opt)).toMatchObject({expectedResult});
     });
   });
 });

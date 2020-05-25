@@ -9,7 +9,7 @@ import * as helmet from 'fastify-helmet';
 import { AppModule } from './app.module';
 import { GlobalInterceptor } from './common/interceptor/global.interceptor';
 import { TransformInterceptor } from './common/interceptor/transform.interceptor';
-// import { ErrorsInterceptor } from './common/interceptor/errors.interceptor';
+import { ErrorsInterceptor } from './common/interceptor/errors.interceptor';
 import { HttpExceptionFilter } from './common/filters/errors.exception';
 import { ResponseService } from './common/services/response/response.service';
 import * as fastify from 'fastify';
@@ -28,9 +28,6 @@ export async function start(): Promise<NestApp> {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     new FastifyAdapter(),
-    // {
-    //   logger: ['error', 'warn']
-    // }
   );
   app.get(ConfigService);
 
@@ -57,8 +54,8 @@ export async function start(): Promise<NestApp> {
   app.setGlobalPrefix('api');
   app.useGlobalFilters(new HttpExceptionFilter(responseSet));
   app.useGlobalInterceptors(new GlobalInterceptor());
-  // app.useGlobalInterceptors(new ErrorsInterceptor());
   app.useGlobalInterceptors(new TransformInterceptor(responseSet));
+  app.useGlobalInterceptors(new ErrorsInterceptor());
 
   // Swagger Docs
   const options = new DocumentBuilder()
