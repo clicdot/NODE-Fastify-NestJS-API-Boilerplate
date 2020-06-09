@@ -59,9 +59,9 @@ export async function start(): Promise<NestApp> {
 
   // Swagger Docs
   const options = new DocumentBuilder()
-    .setTitle('Swagger example')
-    .setDescription('The SpSwaggeracee API description')
-    .setVersion('1.0')
+    .setTitle(process.env.SWAGGER_TITLE)
+    .setDescription(process.env.SWAGGER_DESCR)
+    .setVersion(process.env.SWAGGER_VS)
     .addTag('Swagger')
     .build();
   const document = SwaggerModule.createDocument(app, options);

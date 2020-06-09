@@ -29,7 +29,7 @@ export class TransformInterceptor<T> implements NestInterceptor<Response> {
           method: request.raw.method,
           url: request.raw.url,
           version,
-          ip: (this.responseSvc.type === 1) ? request.ip : 'n/a'
+          ip: request.ip
         },
         responseTime: `${Date.now() - now}ms`
       }, data });

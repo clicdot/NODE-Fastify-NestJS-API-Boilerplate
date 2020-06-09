@@ -8,7 +8,8 @@ export class HttpExceptionFilter implements ExceptionFilter {
 
   catch(error: Error, host: ArgumentsHost) {
     // const response = host.switchToHttp().getResponse();
-    const status = (error instanceof HttpException) ? error.getStatus(): HttpStatus.BAD_REQUEST;
+    const errParsed = JSON.parse(JSON.stringify(error));
+    const status = (error instanceof HttpException) ? error.getStatus() : errParsed && errParsed.statusCode ? errParsed.statusCode : HttpStatus.BAD_REQUEST;
     const ctx = host.switchToHttp();
     const request = ctx.getRequest();
     const reply = ctx.getResponse();
@@ -18,10 +19,10 @@ export class HttpExceptionFilter implements ExceptionFilter {
       code: status,
       msg: error.message,
       func: {
-        method: request.method || request.raw.method,
+        method: request.method,
         url: (request._parsedUrl && request._parsedUrl.path) ? request._parsedUrl.path : request.raw.url,
         version: ((request._parsedUrl && request._parsedUrl.path) ? request._parsedUrl.path : request.raw.url).split('/')[2],
-        ip: (this.responseSvc.type === 1) ? request.ip : 'n/a'
+        ip: request.ip
       }
     };
 

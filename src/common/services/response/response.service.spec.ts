@@ -16,42 +16,39 @@ describe('ResponseService', () => {
     expect(service).toBeDefined();
   });
 
-  // function reply() {
-  //   const reply = {
-  //     code (status) {
-  //       console.log('STAUS', status);
-  //       return this;
-  //     },
-  //     send (json) {
-  //       console.log('JSON', json);
-  //       return this;
-  //     },
-  //   };
-  // }
-
   describe('Reply ', () => {
     it('Reply type 1', async () => {
-      // const obj = {};
       const reply = {
+        data: {},
         code (status) {
-          console.log('STAUS', status);
+          console.log(status);
           return this;
         },
         send (json) {
-          console.log('JSON', json);
-          return this;
+          console.log(json);
+          this.data = json;
+          return this.data;
         },
       };
       const expectedResult = {};
       const opt = {
         code: 200,
         func: {
-
+          method: 'GET',
+          url: '/api/v1',
+          version: 'v1',
+          ip: '127.0.0.1'
         },
-        msg: []
+        msg: 'Test'
       };
-      // console.log('RESPONSE', await service.reply(reply, opt));
-      expect(await service.reply(reply, opt)).toMatchObject({expectedResult});
+
+      const result = await service.reply(reply, opt);
+      expect(result).toMatchObject(expectedResult);
+      expect(result).toBeTruthy();
+      expect(result.response.code).toEqual(200);
+      expect(result.response.function.method).toBe('GET');
+      expect(result.response.function.url).toBe('/api/v1');
+      expect(result.response.function.version).toBe('v1');
     });
   });
 });
