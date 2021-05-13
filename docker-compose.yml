@@ -1,0 +1,80 @@
+## Docker Compose requires an .env file
+## .env for security reasons is not part of the repo
+## .env will be dynamically created on CI/CD process
+# dFile='Dockerfile'
+# appName='someapp'
+# PORT_MAPPED=5000
+# PORT_TARGET=5001
+# ENV=DEV|UAT|PROD
+# REDIS_PORT=6379
+#
+
+services:
+  # db:
+  #   container_name: ${appName}_mongo
+  #   build: ./mongodb/
+  #   # image: mongo
+  #   command: mongod --port 27021
+  #   ports:
+  #     - 27021:27021
+  #   volumes:
+  #     - "./mongodb/data:/data/db"
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: admin
+  #     MONGO_INITDB_ROOT_PASSWORD: 93B6c9R49t
+  #   restart: always
+  #   networks:
+  #     - ${appName}_default
+
+  cache:
+    container_name: ${appName}_redis
+    image: redis:alpine
+    command: redis-server /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./docker/redis/redis.conf:/usr/local/etc/redis/redis.conf
+    networks:
+      - default
+    ports:
+      - 6379:6379
+
+  api:
+    container_name: ${appName}_api
+    build:
+      context: .
+      dockerfile: ./docker/${dFile}
+    volumes:
+      - "./src:/app/src"
+    ports:
+      - "${PORT_MAPPED}:${PORT_TARGET}"
+    environment:
+      PORT_MAPPED: ${PORT_MAPPED}
+      PORT_TARGET: ${PORT_TARGET}
+      SWAGGER_TITLE: "SWAGGER"
+      SWAGGER_DESCR: "Swagger Demo"
+      SWAGGER_VS: "1.0.0"
+      # POSTGRES_HOST: wm.cerkslfpk0rw.us-east-1.rds.amazonaws.com
+      # POSTGRES_PORT: 5432
+      # POSTGRES_USER: admin
+      # POSTGRES_PASSWORD: password
+      # POSTGRES_DATABASE: dbname
+      # MONGOOSEURL: wm_mongo
+      # MONGOOSEPORT: 27021
+      # MONGOOSEUSER: admin
+      # MONGOOSEPASS: 93B6c9R49t
+      # MONGOOSEDB: mongodbname
+      REDISHOST: ${appName}_redis
+      REDISPORT: 6379
+      MODE: ${NODE_ENV}
+      RUN_MIGRATIONS: "true"
+      ENV: ${ENV}
+    depends_on:
+      - cache
+    links:
+      - cache
+    networks:
+      - default
+networks:
+  default:
+    name: ${appName}_orchestrator
+    driver: bridge
+version: '3.5'
