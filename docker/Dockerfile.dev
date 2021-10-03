@@ -1,6 +1,7 @@
 FROM node:alpine
 
 RUN mkdir /app
+RUN mkdir /uploads
 
 WORKDIR /app
 
@@ -9,5 +10,6 @@ COPY . /app
 RUN yarn install
 
 EXPOSE 8080
+EXPOSE 3000
 
 CMD yarn run start:dev

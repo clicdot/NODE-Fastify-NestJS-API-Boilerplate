@@ -1,6 +1,7 @@
 FROM node:alpine
 
 RUN mkdir /app
+RUN mkdir /uploads
 
 WORKDIR /app
 
@@ -10,6 +11,6 @@ RUN yarn install
 
 RUN yarn run build
 
-EXPOSE 8080
+EXPOSE 3000
 
 CMD yarn run start:prod

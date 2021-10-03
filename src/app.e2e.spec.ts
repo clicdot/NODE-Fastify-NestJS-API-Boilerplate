@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import { MongoMemoryServer } from 'mongodb-memory-server';
-import { AppModule } from '../src/app.module';
-import { ApiConstants } from '../src/core/constants/api.constants';
+import { AppModule } from './app.module';
+import { ApiConstants } from './core/constants/api.constants';
 import {
   FastifyAdapter,
   NestFastifyApplication
@@ -15,7 +15,7 @@ describe('AppModule (e2e)', () => {
   beforeEach(async () => {
     ApiConstants.MONGOOSETLSCERT = false;
     mongod = await MongoMemoryServer.create();
-
+    process.env.MODE = 'LOCAL';
     process.env.MONGODB_URI = mongod.getUri();
     // let mongooseConfig =
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -36,15 +36,15 @@ describe('AppModule (e2e)', () => {
       // .expect('Content-Type', /json/)
       .expect(200)
       .end((err, res) => {
-        // console.log('ERROR', err);
-        // if (err) done(err);
-        // console.log('RESULT', res);
+        console.log('ERROR', err);
+        if (err) return done(err);
+        console.log('RESULT', res.body);
         done();
       });
   });
 
   afterAll(async () => {
-    await app.close();
     await mongod.stop();
+    await app.close();
   });
 });

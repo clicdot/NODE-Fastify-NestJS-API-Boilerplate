@@ -10,32 +10,26 @@
 #
 
 services:
-  # db:
-  #   container_name: ${appName}_mongo
-  #   build: ./mongodb/
-  #   # image: mongo
-  #   command: mongod --port 27021
-  #   ports:
-  #     - 27021:27021
-  #   volumes:
-  #     - "./mongodb/data:/data/db"
-  #   environment:
-  #     MONGO_INITDB_ROOT_USERNAME: admin
-  #     MONGO_INITDB_ROOT_PASSWORD: 93B6c9R49t
-  #   restart: always
-  #   networks:
-  #     - ${appName}_default
-
-  cache:
-    container_name: ${appName}_redis
-    image: redis:alpine
-    command: redis-server /usr/local/etc/redis/redis.conf
-    volumes:
-      - ./docker/redis/redis.conf:/usr/local/etc/redis/redis.conf
+  db:
+    container_name: ${appName}_mongo
+    image: mongo
+    command: mongod --port ${MONGO_PORT}
+    ports:
+      - ${MONGO_PORT}:${MONGO_PORT}
+    restart: always
     networks:
       - default
-    ports:
-      - 6379:6379
+
+  # cache:
+  #   container_name: ${appName}_redis
+  #   image: redis:alpine
+  #   command: redis-server /usr/local/etc/redis/redis.conf
+  #   volumes:
+  #     - ./docker/redis/redis.conf:/usr/local/etc/redis/redis.conf
+  #   networks:
+  #     - default
+  #   ports:
+  #     - 6379:6379
 
   api:
     container_name: ${appName}_api
@@ -44,33 +38,30 @@ services:
       dockerfile: ./docker/${dFile}
     volumes:
       - "./src:/app/src"
+    expose:
+      - 3000
+      - 8080
     ports:
       - "${PORT_MAPPED}:${PORT_TARGET}"
+      - 9229:9229
     environment:
+      DEBUG: ${DEBUG}
       PORT_MAPPED: ${PORT_MAPPED}
       PORT_TARGET: ${PORT_TARGET}
-      SWAGGER_TITLE: "SWAGGER"
-      SWAGGER_DESCR: "Swagger Demo"
+      SWAGGER_TITLE: "Demo"
+      SWAGGER_DESCR: "Swagger"
       SWAGGER_VS: "1.0.0"
-      # POSTGRES_HOST: wm.cerkslfpk0rw.us-east-1.rds.amazonaws.com
-      # POSTGRES_PORT: 5432
-      # POSTGRES_USER: admin
-      # POSTGRES_PASSWORD: password
-      # POSTGRES_DATABASE: dbname
-      # MONGOOSEURL: wm_mongo
-      # MONGOOSEPORT: 27021
-      # MONGOOSEUSER: admin
-      # MONGOOSEPASS: 93B6c9R49t
-      # MONGOOSEDB: mongodbname
-      REDISHOST: ${appName}_redis
-      REDISPORT: 6379
+      MONGOOSEHOST: db
+      MONGOOSEPORT: ${MONGO_PORT}
+      MONGOOSEDB: ${MONGO_DB}
+      MONGOOSETLSCERT: ${MONGOOSETLSCERT}
+      APIKEY: ${APIKEY}
       MODE: ${NODE_ENV}
-      RUN_MIGRATIONS: "true"
       ENV: ${ENV}
     depends_on:
-      - cache
+      - db
     links:
-      - cache
+      - db
     networks:
       - default
 networks:

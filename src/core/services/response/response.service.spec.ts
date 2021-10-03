@@ -21,11 +21,9 @@ describe('ResponseService', () => {
       const reply = {
         data: {},
         code(status) {
-          console.log(status);
           return this;
         },
         send(json) {
-          console.log(json);
           this.data = json;
           return this.data;
         }
