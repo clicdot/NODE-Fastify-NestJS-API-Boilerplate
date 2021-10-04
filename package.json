@@ -91,7 +91,8 @@
       "src/main.ts",
       "src/fastify.bootstrap.ts",
       "src/dev.bootstrap.ts",
-      "src/daemonix-app.ts"
+      "src/daemonix-app.ts",
+      "src/api/components/healthcheck"
     ],
     "verbose": true
   }

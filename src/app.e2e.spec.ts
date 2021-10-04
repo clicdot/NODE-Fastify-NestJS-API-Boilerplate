@@ -32,10 +32,10 @@ describe('AppModule (e2e)', () => {
 
   it('/ (GET)', (done) => {
     request(app.getHttpServer())
-      .get('/healthcheck')
+      .get('/v1/app')
       // .expect('Content-Type', /json/)
       .expect(200)
-      .end((err, res) => {
+      .end(async (err, res) => {
         console.log('ERROR', err);
         if (err) return done(err);
         console.log('RESULT', res.body);
