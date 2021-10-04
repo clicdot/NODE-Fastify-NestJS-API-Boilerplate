@@ -1,10 +1,10 @@
 {
-  "name": "test-app",
+  "name": "node-fastify-nestjs-api-boilerplate",
   "version": "0.0.1",
   "description": "",
-  "author": "",
+  "author": "Philip Choi",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "ISC",
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
