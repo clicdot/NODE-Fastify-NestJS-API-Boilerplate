@@ -14,6 +14,6 @@ describe('AppService', () => {
   });
 
   it('AppService - should be defined', () => {
-    expect(AppComponentModule).toBeDefined();
+    expect(appmodule).toBeDefined();
   });
 });

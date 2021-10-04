@@ -14,9 +14,9 @@ import { TransformInterceptor } from './core/interceptor/transform.interceptor';
 import { ErrorsInterceptor } from './core/interceptor/errors.interceptor';
 import { HttpExceptionFilter } from './core/filters/errors.exception';
 import { ResponseService } from './core/services/response/response.service';
-import * as os from 'os';
-import onResponse from './core/services/response/onResponse';
-import jwt from 'fastify-jwt';
+// import * as os from 'os';
+// import onResponse from './core/services/response/onResponse';
+// import jwt from 'fastify-jwt';
 
 const helmetPolicy =
   process.env.ENV === 'PROD'

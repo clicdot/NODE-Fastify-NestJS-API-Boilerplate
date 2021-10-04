@@ -36,9 +36,9 @@ describe('AppModule (e2e)', () => {
       // .expect('Content-Type', /json/)
       .expect(200)
       .end((err, res) => {
-        // console.log('ERROR', err);
-        // if (err) done(err);
-        // console.log('RESULT', res);
+        console.log('ERROR', err);
+        if (err) return done(err);
+        console.log('RESULT', res.body);
         done();
       });
   });

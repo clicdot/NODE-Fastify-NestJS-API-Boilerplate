@@ -21,7 +21,7 @@ export class GlobalInterceptor implements NestInterceptor {
     const ctx = context.switchToHttp();
     const request: FastifyRequest = ctx.getRequest();
     // const reply: FastifyReply = ctx.getResponse();
-    const { method, url, body, headers } = request;
+    const { method, url } = request;
     const now = Date.now();
 
     this.logger.log('Before...');
@@ -81,7 +81,7 @@ export class GlobalInterceptor implements NestInterceptor {
     const req: FastifyRequest = context
       .switchToHttp()
       .getRequest<FastifyRequest>();
-    const { method, url, body } = req;
+    const { method, url } = req;
 
     if (error instanceof HttpException) {
       const statusCode: number = error.getStatus();

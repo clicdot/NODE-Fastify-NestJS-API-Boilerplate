@@ -3,10 +3,10 @@ import Got, { Got as GotType } from 'got';
 import * as FormData from 'form-data';
 import * as path from 'path';
 
-import * as util from 'util';
+// import * as util from 'util';
 import * as fs from 'fs-extra';
-import { pipeline } from 'stream';
-const pump = util.promisify(pipeline);
+// import { pipeline } from 'stream';
+// const pump = util.promisify(pipeline);
 
 @Injectable()
 export class GotService {

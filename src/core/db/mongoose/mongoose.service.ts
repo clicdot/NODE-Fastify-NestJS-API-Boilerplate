@@ -4,7 +4,6 @@ import {
   MongooseModuleOptions
 } from '@nestjs/mongoose';
 import { ApiConstants } from '../../constants/api.constants';
-import * as fs from 'fs-extra';
 
 @Injectable()
 export class MongooseConfigService implements MongooseOptionsFactory {

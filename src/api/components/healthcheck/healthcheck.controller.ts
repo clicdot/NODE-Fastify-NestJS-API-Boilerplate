@@ -6,14 +6,7 @@ import {
   // TypeOrmHealthIndicator
   MongooseHealthIndicator
 } from '@nestjs/terminus';
-import {
-  ApiBearerAuth,
-  ApiOperation,
-  ApiResponse,
-  ApiTags,
-  ApiBody,
-  ApiParam
-} from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { VersionHealthIndicator } from './services/version-health-check.service';
 
 @ApiTags('Microservice - Health Check')
@@ -29,6 +22,10 @@ export class HealthcheckController {
 
   @Get()
   @HealthCheck()
+  @ApiOperation({ summary: 'Health Check' })
+  @ApiResponse({ status: 200, description: 'Success' })
+  @ApiResponse({ status: 406, description: 'Bad Request' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
   check() {
     return this.health.check([
       async () =>

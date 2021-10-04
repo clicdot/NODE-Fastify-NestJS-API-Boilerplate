@@ -14,7 +14,7 @@ export class AppService {
   }
 
   find(): Promise<App[]> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       resolve([
         {
           name: 'test',
@@ -26,7 +26,7 @@ export class AppService {
   }
 
   findAll(): Promise<AppInterface[]> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       resolve([
         {
           name: 'test',
@@ -38,10 +38,10 @@ export class AppService {
   }
 
   findOne(id: number): Promise<App> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       resolve({
         name: 'test',
-        version: 1,
+        version: id,
         type: 'javascript'
       });
     });

@@ -6,12 +6,11 @@ import {
   HttpException,
   ArgumentsHost,
   HttpStatus,
-  CallHandler,
   Logger
 } from '@nestjs/common';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { v4 as uuidv4 } from 'uuid';
+// import { Observable } from 'rxjs';
+// import { map } from 'rxjs/operators';
+// import { v4 as uuidv4 } from 'uuid';
 
 @Catch()
 export class HttpExceptionFilter implements ExceptionFilter {
@@ -36,7 +35,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
     reply.header('Pragma', 'no-cache');
     reply.header('Expires', '-1');
 
-    const { method, url, body, headers } = request;
+    const { method, url } = request;
 
     const opt = {
       code: status,

@@ -1,5 +1,5 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
-import { HealthIndicator, HealthIndicatorResult } from '@nestjs/terminus';
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { HealthIndicatorResult, HealthIndicator } from '@nestjs/terminus';
 // import { RedisService } from 'nestjs-redis';
 
 @Injectable()
