@@ -37,7 +37,7 @@
     "fastify-multipart": "^5.0.1",
     "fastify-plugin": "^3.0.0",
     "fastify-swagger": "^4.12.4",
-    "got": "^11.8.2",
+    "got": "^11.8.5",
     "mongoose": "^6.0.8",
     "nest-router": "^1.0.9",
     "reflect-metadata": "^0.1.13",
